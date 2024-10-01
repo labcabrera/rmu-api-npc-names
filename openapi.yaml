@@ -1,0 +1,75 @@
+openapi: 3.0.1
+info:
+  title: RMU NPC Names API
+  description: RMU NPC Names API
+  contact:
+    name: Luis Cabrera
+    url: https://github.com/labcabrera
+    email: lab.cabrera@gmail.com
+  version: 0.1.0
+servers:
+  - url: http://localhost:3007/v1
+tags:
+  - name: Random names
+    description: Random names
+paths:
+  /random-names/{race}:
+    get:
+      tags:
+        - Random names
+      summary: Get random name by race
+      operationId: findRandomName
+      parameters:
+        - name: race
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+        '404':
+          description: Race not found
+components:
+  schemas:
+    PagedContentInfo:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+    PagedContentSkillCategory:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkillCategory'
+        info:
+          $ref: '#/components/schemas/PagedContentInfo'
+    SkillCategory:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          description: Skill category identifier
+          example: 66545720ccc0b409343736b2
+        name:
+          type: string
+          description: Skill category name
