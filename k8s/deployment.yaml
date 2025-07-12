@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmu-api-npc-names
+  labels:
+    app: rmu-api-npc-names
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rmu-api-npc-names
+  template:
+    metadata:
+      labels:
+        app: rmu-api-npc-names
+    spec:
+      containers:
+      - name: rmu-api-npc-names
+        image: labcabrera/rmu-api-npc-names:latest
+        ports:
+        - containerPort: 3007
+        
