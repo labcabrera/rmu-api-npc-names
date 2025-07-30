@@ -7,8 +7,11 @@ router.get('/:race', async (req, res) => {
     try {
         const race = req.params.race;
         const name =  await randomNameService.getRandomName(race);
-        res.set('Content-Type', 'text/plain');
-        res.send(name);
+        const response = {
+            name: name
+        };
+        res.set('Content-Type', 'application/json');
+        res.send(JSON.stringify(response));
     } catch (error) {
         res.status(error.status ? error.status : 500).json({ message: error.message });
     }

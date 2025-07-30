@@ -1,17 +1,19 @@
 {
   "name": "rmu-api-npc-names",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "rmu-api-npc-names",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.0",
+    "express": "^4.21.2",
     "swagger-ui-express": "^5.0.1",
-    "yaml": "^2.5.1"
+    "yaml": "^2.8.0"
   }
 }
