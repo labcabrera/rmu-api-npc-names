@@ -6,9 +6,9 @@ interface RandomNameError {
     message: string;
 }
 
-export const getRandomName = async (race: string): Promise<string> => {
+export const getRandomName = async (race: string, gender: string): Promise<string> => {
     try {
-        const filePath = resolveRaceFile(race);
+        const filePath = resolveRaceFile(race, gender);
         const line = await getRandomLine(filePath);
         return line;
     } catch (error) {
@@ -38,10 +38,16 @@ const getRandomLine = async (file: string): Promise<string> => {
     }
 };
 
-const resolveRaceFile = (race: string): string => {
-    // TODO: Implement proper race mapping
-    if (race.includes('orc') || race.includes('troll')) {
-        return path.join(__dirname, '../../data/names-orcs.txt');
+const resolveRaceFile = (race: string, gender: string): string => {
+    const check = race ? race.toLowerCase() : 'generic';
+    const genderCheck = gender ? gender.toLowerCase() : 'male';
+    let filePath: string = '../../data/names-greek-gods.txt';
+    if (check.includes('orc') || check.includes('troll')) {
+        filePath = '../../data/names-orcs.txt';
+    } else if (check.includes('elf')) {
+        filePath = genderCheck === 'male' ? '../../data/names-sindar-male.txt' : '../../data/names-sindar-female.txt';
+    } else if (check.includes('halfling')) {
+        filePath = '../../data/names-hobbits-surnames.txt';
     }
-    return path.join(__dirname, '../../data/names-greek-gods.txt');
+    return path.join(__dirname, filePath);
 };

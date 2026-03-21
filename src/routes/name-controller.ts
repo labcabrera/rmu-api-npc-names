@@ -11,10 +11,11 @@ interface ErrorResponse {
     message: string;
 }
 
-router.get('/:race', async (req: Request, res: Response): Promise<void> => {
+router.get('', async (req: Request, res: Response): Promise<void> => {
     try {
-        const race: string = req.params.race;
-        const name: string = await getRandomName(race);
+        const race: string = req.query.race ? req.query.race as string : 'generic';
+        const gender: string = req.query.gender ? req.query.gender as string : 'male';
+        const name: string = await getRandomName(race, gender);
         const response: NameResponse = {
             name: name
         };
